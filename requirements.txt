@@ -1,0 +1,8 @@
+discord.py
+requests
+nhentai.py
+psutil
+humanize
+speedtest-cli
+discord-ext-alternatives
+rule34
