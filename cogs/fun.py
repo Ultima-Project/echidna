@@ -1,4 +1,3 @@
-from asyncio.windows_events import ERROR_CONNECTION_ABORTED
 import datetime
 from datetime import date
 from discord import Embed, Member
