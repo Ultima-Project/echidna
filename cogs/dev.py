@@ -1,8 +1,12 @@
 from discord import Embed
+import discord
 from discord.ext import commands
 import re
 import subprocess
 import datetime
+import humanize
+
+from discord.ext.commands.core import check
 
 
 class dev(commands.Cog):
@@ -82,6 +86,44 @@ class dev(commands.Cog):
     @commands.command()
     async def gerryscotti(self, ctx):
         await ctx.send("BUONASERA!")
+
+    @commands.command()
+    @commands.is_owner()
+    async def region(self, ctx, *, region: str):
+        regions = (
+            "japan",
+            "singapore",
+            "eu-central",
+            "europe",
+            "india",
+            "us-central",
+            "london",
+            "eu-west",
+            "amsterdam",
+            "brazil",
+            "dubai",
+            "us-west",
+            "hongkong",
+            "us-south",
+            "southafrica",
+            "us-east",
+            "sydney",
+            "frankfurt",
+            "russia",
+        )
+        region = region.replace(" ", "-")
+        if region not in regions:
+            ctx.command.reset_cooldown(ctx)
+            return await ctx.send(
+                f"`{region}` non è stato trovato nell'elenco delle regioni vocali Discord."
+            )
+        try:
+            await ctx.guild.edit(region=region)
+        except discord.errors.Forbidden:
+            return await ctx.send("Non ho i permessi per modificare le impostazioni di questa gilda.")
+        except discord.errors.HTTPException:
+            return await ctx.send(f"Errore: è stata trasmessa una regione del server non valida: `{region}`")
+        await ctx.send(f"La regione del server vocale per `{ctx.guild.name}` è stato cambiato in `{region}`.")
 
 
 def speed_test():
