@@ -16,7 +16,7 @@ class fun(commands.Cog):
     @commands.command()
     async def dado(self, ctx):
         await ctx.trigger_typing()
-        await ctx.send((choice(["uno", "Due", "Tre", "Quattro", "Cinque", "Sei"])))
+        await ctx.send((choice(["Uno", "Due", "Tre", "Quattro", "Cinque", "Sei"])))
 
     @commands.command()
     async def rmeme(self, ctx):
@@ -89,7 +89,7 @@ class fun(commands.Cog):
                 embed.add_field(name="Casi per milione di cittadini",
                                 value=country['casesPerOneMillion'], inline=False)
                 embed.set_footer(
-                    text="Queste informazioni non sono al 100% \accurate")
+                    text="Queste informazioni non sono al 100"+'%'+" accurate")
                 await ctx.send(embed=embed)
                 return
 
@@ -116,7 +116,7 @@ class fun(commands.Cog):
                 i+1)+". "+country['country'], value=f"{country['cases']}/{country['deaths']}/{country['recovered']} (C/D/R) **+{country['todayCases']}/{country['todayDeaths']} (C/D)**", inline=False)
 
         channel = self.bot.get_channel(self.channel_id)
-        embed.set_footer(text="Queste informazioni non sono al 100% \accurate")
+        embed.set_footer(text="Queste informazioni non sono al 100"+'%'+" accurate")
 
         await ctx.send(embed=embed)
 
