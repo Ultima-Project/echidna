@@ -136,6 +136,15 @@ class fun(commands.Cog):
             await ctx.send(user.avatar_url)
             print("Mancano i permessi per l'embed, quindi non farò l'embed")
 
-    
+    @commands.command()
+    async def culo(self, ctx):
+        await ctx.send("ლ(́◉◞౪◟◉‵ლ)")
+
+    @commands.command()
+    async def squat(self, ctx):
+        random = randint(2, 1000)
+        random1 = randint(4, 90)
+        await ctx.send(f"{ctx.author.mention} mette sulla faccia del gioco e fa {random} squat in {random1} minuti. Ne vale la pena!")
+
 def setup(bot):
     bot.add_cog(fun(bot))
