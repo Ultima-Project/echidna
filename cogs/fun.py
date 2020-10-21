@@ -121,5 +121,21 @@ class fun(commands.Cog):
         await ctx.send(embed=embed)
 
 
+    @commands.command(pass_context=True, no_pm=True)
+    async def avatar(self, ctx, user : discord.Member):
+
+        try:
+            colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
+            colour = int(colour, 16)
+            embed=discord.Embed(colour=discord.Colour(value=colour))
+            embed.set_author(name="{}'s avatar:".format(user.name), url=user.avatar_url)
+            embed.set_image(url=user.avatar_url)
+
+            await ctx.send(embed=embed)
+        except discord.HTTPException:
+            await ctx.send(user.avatar_url)
+            print("Mancano i permessi per l'embed, quindi non farò l'embed")
+
+    
 def setup(bot):
     bot.add_cog(fun(bot))
