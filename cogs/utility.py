@@ -59,6 +59,14 @@ class utility(commands.Cog):
         embed.set_thumbnail(url=url)
         await ctx.send(embed=embed)
 
+    @commands.command(name='github', pass_context=True)
+    async def _git(self, ctx):
+        text = "Vuoi vedere il nostro codice sorgente?" \
+               "o vuoi aiutarci ad implementare nuove funzioni? " \
+               "ecco a te il nostro link di github :sunglasses: \n https://github.com/Ultima-Project/echidna"
+        em = Embed(title='Github Repo Echidna', description=text, colour=0xE9D460)
+        await ctx.send(embed=em)
+
 
 def setup(bot):
     bot.add_cog(utility(bot))
