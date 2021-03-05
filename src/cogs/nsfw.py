@@ -1,7 +1,9 @@
 import asyncio
 from discord import Embed
+import discord
 from discord.ext import commands
 from random import choice
+import os
 
 import nhentai
 import rule34
@@ -77,6 +79,10 @@ class nsfw(commands.Cog):
         rule34_instance = rule34.Rule34(loop=asyncio.get_event_loop())
         images = await rule34_instance.getImages(query)
         await ctx.send(choice(images).file_url)
+
+    @commands.command(name="animedir")
+    async def animedir(self, ctx):
+        await ctx.send(file=discord.File("/home/wiichele/Immagini/Anime/" + choice(os.listdir("/home/wiichele/Immagini/Anime/"))))
 
 
 def ndoujin_embed(query):
