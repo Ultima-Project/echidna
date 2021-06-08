@@ -1,12 +1,14 @@
 from discord.ext import commands
-from os import listdir
+import os
+import sys
 from time import sleep
-from json import load
+import json
 
-with open("settings.json", 'r') as settings:
-    settings = load(settings)
+with open(os.path.join(sys.path[0], "settings.json")) as settings:
+    settings = json.load(settings)
     TOKEN = settings['token']
     PREFIX = settings['prefix']
+
 bot = commands.Bot(command_prefix=PREFIX)
 
 
@@ -28,7 +30,7 @@ async def reload(ctx, extension):
     bot.load_extension(f'cogs.{extension}')
     await ctx.send(f"Reloaded {extension}")
 
-for filename in listdir("./cogs"):
+for filename in os.listdir(os.path.join(sys.path[0], "./cogs")):
     if filename.endswith(".py"):
         bot.load_extension(f'cogs.{filename[:-3]}')
 

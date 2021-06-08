@@ -6,3 +6,4 @@ humanize
 speedtest-cli
 discord-ext-alternatives
 rule34
+pytz
