@@ -81,8 +81,9 @@ class nsfw(commands.Cog):
         await ctx.send(choice(images).file_url)
 
     @commands.command(name="animedir")
-    async def animedir(self, ctx):
-        await ctx.send(file=discord.File("/home/wiichele/Immagini/Anime/" + choice(os.listdir("/home/wiichele/Immagini/Anime/"))))
+    async def animedir(self, ctx, number_of_images = 1):
+        for _ in range(number_of_images):
+            await ctx.send(file=discord.File("/home/wiichele/Immagini/Anime/" + choice(os.listdir("/home/wiichele/Immagini/Anime/"))))
 
 
 def ndoujin_embed(query):
