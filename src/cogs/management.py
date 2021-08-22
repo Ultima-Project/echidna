@@ -4,7 +4,7 @@ from discord.utils import get
 from os import path
 
 
-class management(commands.Cog):
+class Management(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -86,4 +86,4 @@ class management(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(management(bot))
+    bot.add_cog(Management(bot))

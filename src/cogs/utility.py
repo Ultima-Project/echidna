@@ -5,7 +5,7 @@ from datetime import datetime
 from os_tools import stats
 
 
-class utility(commands.Cog):
+class Utility(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -74,4 +74,4 @@ class utility(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(utility(bot))
+    bot.add_cog(Utility(bot))

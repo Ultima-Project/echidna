@@ -3,7 +3,7 @@ import pytz
 from discord.ext import commands
 
 
-class clock(commands.Cog):
+class Clock(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -92,4 +92,4 @@ def datetime_with_timezone(city: str, timezone: str):
 
 
 def setup(bot):
-    bot.add_cog(clock(bot))
+    bot.add_cog(Clock(bot))

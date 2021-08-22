@@ -7,7 +7,7 @@ import rule34
 from os_tools import random_file
 
 
-class nsfw(commands.Cog):
+class NSFW(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -142,4 +142,4 @@ def ntags(doujin):
 
 
 def setup(bot):
-    bot.add_cog(nsfw(bot))
+    bot.add_cog(NSFW(bot))
