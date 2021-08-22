@@ -1,7 +1,6 @@
 from discord.ext import commands
 import os
 import sys
-from time import sleep
 import json
 
 with open(os.path.join(sys.path[0], "settings.json")) as settings:
@@ -38,4 +37,3 @@ try:
     bot.run(TOKEN)
 except:
     print("Invalid token or broken connection!")
-    sleep(3)
