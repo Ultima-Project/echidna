@@ -1,4 +1,4 @@
-from os import listdir, getpid, path
+from os import listdir, getpid
 from random import choice
 from time import time
 from discord import __version__ as discord_version
@@ -10,19 +10,6 @@ from humanize import naturaldelta
 def random_file(path):
     file = choice(listdir(path))
     return path+file
-
-
-def check_file(file: str):
-    Path = path.join(path.expanduser("~") + file)
-    if not path.isfile(Path):
-        f = open(Path, "w")
-
-
-def open_file(path):
-    file = open(path)
-    if file is None:
-        file = open(path, "w")
-    return file
 
 
 def stats():
@@ -37,12 +24,12 @@ def stats():
         memoryUse = py.memory_info()[0] * 10**6
 
     fields = [
-        ("Uso della CPU", str(cpu_usage) + '%', True),
-        ("Utilizzo della memoria", str(memoryUse)[:2] + " MB", True),
-        ("Totale memoria", str(mem_total) + " MB", True),
-        ("Discord.py", discord_version, True),
-        ("Python", python_version(), True),
-        ("Uptime", uptime, True)
+        ('Uso della CPU', str(cpu_usage) + '%', True),
+        ('Utilizzo della memoria', str(memoryUse)[:2] + ' MB', True),
+        ('Totale memoria', str(mem_total) + ' MB', True),
+        ('Discord.py', discord_version, True),
+        ('Python', python_version(), True),
+        ('Uptime', uptime, True)
     ]
 
     return fields

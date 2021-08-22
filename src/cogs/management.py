@@ -5,34 +5,35 @@ from os import path
 
 
 class management(commands.Cog):
-
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="ruoli")
+
+    @commands.command(name='ruoli')
     async def ruoli(self, ctx):
         print(ctx.guild.roles)
 
-    @commands.command(name="setdefaultrole")
+
+    @commands.command(name='setdefaultrole')
     async def set_default_role(self, ctx, default):
         buttons = ['❌', '✅']
 
         server_id = ctx.guild.id
         role = get(ctx.guild.roles, name=default)
         if role is None:
-            await ctx.send("Ruolo non trovato!")
+            await ctx.send('Ruolo non trovato!')
             return
 
-        file_r = open(path.join(path.expanduser("~") +
-                                "/Vittroia.py/default_rules.vtt"), "r")
+        file_r = open(path.join(path.expanduser('~') +
+                                '/Vittroia.py/default_rules.vtt'), 'r')
 
         credentials = file_r.readlines()
         count = 0
         for line in credentials:
             if line.startswith(str(server_id)):
-                role_id = line.strip()[line.strip().index(" "):]
+                role_id = line.strip()[line.strip().index(' '):]
                 if int(role_id) != role.id:
-                    message = await ctx.send("Ruolo di default già impostato, modificare?", delete_after=90.0)
+                    message = await ctx.send('Ruolo di default già impostato, modificare?', delete_after=90.0)
                     for emoji in buttons:
                         await message.add_reaction(emoji)
 
@@ -48,37 +49,38 @@ class management(commands.Cog):
                             break
                         else:
                             if reaction.emoji == buttons[0]:
-                                await ctx.send("Ruolo di default non modificato", delete_after=90.0)
+                                await ctx.send('Ruolo di default non modificato', delete_after=90.0)
                                 return
                             if reaction.emoji == buttons[1]:
                                 credentials[count] = str(
-                                    server_id) + " " + str(role.id) + "\n"
+                                    server_id) + ' ' + str(role.id) + '\n'
                                 file_w = open(path.join(path.expanduser(
-                                    "~") + "/Vittroia.py/default_rules.vtt"), 'w')
+                                    '~') + '/Vittroia.py/default_rules.vtt'), 'w')
                                 file_w.writelines(credentials)
-                                await ctx.send("Ruolo di default aggiornato", delete_after=90.0)
+                                await ctx.send('Ruolo di default aggiornato', delete_after=90.0)
                                 return
                 else:
-                    await ctx.send("Ruolo di default gia impostato", delete_after=90.0)
+                    await ctx.send('Ruolo di default gia impostato', delete_after=90.0)
                     return
             count += 1
-        credentials.append(str(server_id) + " " + str(role.id) + "\n")
-        file_w = open(path.join(path.expanduser("~") +
-                                "/Vittroia.py/default_rules.vtt"), 'w')
+        credentials.append(str(server_id) + ' ' + str(role.id) + '\n')
+        file_w = open(path.join(path.expanduser('~') +
+                                '/Vittroia.py/default_rules.vtt'), 'w')
         file_w.writelines(credentials)
-        await ctx.send("Ruolo di default impostato", delete_after=90.0)
+        await ctx.send('Ruolo di default impostato', delete_after=90.0)
         return
+
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
         server_id = member.guild.id
 
-        file_r = open(path.join(path.expanduser("~") +
-                                "/Vittroia.py/default_rules.vtt"), 'r')
+        file_r = open(path.join(path.expanduser('~') +
+                                '/Vittroia.py/default_rules.vtt'), 'r')
         credentials = file_r.readlines()
         for line in credentials:
             if line.startswith(str(server_id)):
-                role_id = line.strip()[line.strip().index(" "):]
+                role_id = line.strip()[line.strip().index(' '):]
                 await member.add_roles(member.guild.get_role(int(role_id)))
                 return
 
