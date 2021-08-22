@@ -82,7 +82,7 @@ class nsfw(commands.Cog):
 
 
     @commands.command()
-    async def animedir(self, ctx, number_of_images = 1):
+    async def animedir(self, ctx, number_of_images=1):
         for _ in range(number_of_images):
             await ctx.send(file=File(random_file('/home/wiichele/Immagini/Anime')))
 

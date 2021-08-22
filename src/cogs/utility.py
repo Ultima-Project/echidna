@@ -68,7 +68,8 @@ class utility(commands.Cog):
         text = 'Vuoi vedere il nostro codice sorgente?' \
                'o vuoi aiutarci ad implementare nuove funzioni? ' \
                'ecco a te il nostro link di github :sunglasses: \n https://github.com/Ultima-Project/echidna'
-        em = Embed(title='Github Repo Echidna', description=text, colour=0xE9D460)
+        em = Embed(title='Github Repo Echidna',
+                   description=text, colour=0xE9D460)
         await ctx.send(embed=em)
 
 
