@@ -1,19 +1,18 @@
 import asyncio
-from discord import Embed
-import discord
+from discord import Embed, File
 from discord.ext import commands
 from random import choice
-import os
-
 import nhentai
 import rule34
+from os_tools import random_file
 
 
 class nsfw(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="ndoujin")
+
+    @commands.command()
     async def ndoujin(self, ctx, *args):
         buttons = ['⏪', '◀', '⏹️', '▶', '⏩', '🔀', '🔒']
 
@@ -74,16 +73,18 @@ class nsfw(commands.Cog):
                 embed.set_footer(text=str(page+1)+' '+ctx.author.__str__())
                 await message.edit(embed=embed)
 
-    @commands.command(name="r34")
+
+    @commands.command()
     async def r34(self, ctx, query: str):
         rule34_instance = rule34.Rule34(loop=asyncio.get_event_loop())
         images = await rule34_instance.getImages(query)
         await ctx.send(choice(images).file_url)
 
-    @commands.command(name="animedir")
+
+    @commands.command()
     async def animedir(self, ctx, number_of_images = 1):
         for _ in range(number_of_images):
-            await ctx.send(file=discord.File("/home/wiichele/Immagini/Anime/" + choice(os.listdir("/home/wiichele/Immagini/Anime/"))))
+            await ctx.send(file=File(random_file('/home/wiichele/Immagini/Anime')))
 
 
 def ndoujin_embed(query):
@@ -91,19 +92,19 @@ def ndoujin_embed(query):
     tags = ntags(doujin)
 
     embed = Embed(title=doujin.titles['pretty'] +
-                  " https://nhentai.net/g/"+str(doujin.id), colour=0xb521a4)
+                  ' https://nhentai.net/g/'+str(doujin.id), colour=0xb521a4)
     embed.set_image(url=doujin.cover)
 
     fields = [
-        ("Parodies", tags['parody']),
-        ("Character", tags['character']),
-        ("Tags", tags['tag']),
-        ("Artists", tags['artist']),
-        ("Groups", tags['group']),
-        ("Languages", tags['language']),
-        ("Categories", tags['category']),
-        ("Pages", len(doujin.pages)),
-        ("Favorites", doujin.favorites)
+        ('Parodies', tags['parody']),
+        ('Character', tags['character']),
+        ('Tags', tags['tag']),
+        ('Artists', tags['artist']),
+        ('Groups', tags['group']),
+        ('Languages', tags['language']),
+        ('Categories', tags['category']),
+        ('Pages', len(doujin.pages)),
+        ('Favorites', doujin.favorites)
     ]
 
     for name, value in fields:
@@ -124,8 +125,8 @@ def search_ndoujin(query: str):
 
 
 def ntags(doujin):
-    tags_names = {"parody": '', "character": '', "tag": '',
-                  "artist": '', "group": '', "language": '', "category": ''}
+    tags_names = {'parody': '', 'character': '', 'tag': '',
+                  'artist': '', 'group': '', 'language': '', 'category': ''}
 
     for tag in doujin.tags:
         for key in tags_names:
@@ -135,7 +136,7 @@ def ntags(doujin):
 
     for key in tags_names:
         if not len(tags_names[key]):
-            tags_names[key] = "None"
+            tags_names[key] = 'None'
 
     return tags_names
 
