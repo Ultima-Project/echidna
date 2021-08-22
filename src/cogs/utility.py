@@ -10,10 +10,6 @@ class utility(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.Cog.listener()
-    async def on_ready(self):
-        print('OK ({0})'.format(self.bot.user))
-
     @commands.command(name="stats")
     async def statistics(self, ctx):
         embed = Embed(title="Statistiche del bot", timestamp=datetime.utcnow())
