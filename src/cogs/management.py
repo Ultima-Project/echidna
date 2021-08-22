@@ -2,12 +2,83 @@ import asyncio
 from discord.ext import commands
 from discord.utils import get
 from os import path
+import discord
 
 
 class management(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+
+    @commands.command(name='kick', pass_context=True)
+    @commands.has_permissions(kick_members=True)
+    async def kick(self, context, member: discord.Member, *, reason="Not specified"):
+        if member.guild_permissions.administrator:
+            embed = discord.Embed(
+                title="Error!",
+                description="User has Admin permissions.",
+                color=0xE02B2B
+            )
+            await context.send(embed=embed)
+        else:
+            try:
+                await member.kick(reason=reason)
+                embed = discord.Embed(
+                    title="User Kicked!",
+                    description=f"**{member}** was kicked by **{context.message.author}**!",
+                    color=0x42F56C
+                )
+                embed.add_field(
+                    name="Reason:",
+                    value=reason
+                )
+                await context.send(embed=embed)
+                try:
+                    await member.send(
+                        f"You were kicked by **{context.message.author}**!\nReason: {reason}"
+                    )
+                except:
+                    pass
+            except:
+                embed = discord.Embed(
+                    title="Error!",
+                    description="An error occurred while trying to kick the user. Make sure my role is above the role of the user you want to kick.",
+                    color=0xE02B2B
+                )
+                await context.message.channel.send(embed=embed)
+        
+
+    @commands.command(name="ban")
+    @commands.has_permissions(ban_members=True)
+    async def ban(self, context, member: discord.Member, *, reason="Not specified"):
+        try:
+            if member.guild_permissions.administrator:
+                embed = discord.Embed(
+                    title="Error!",
+                    description="User has Admin permissions.",
+                    color=0xE02B2B
+                )
+                await context.send(embed=embed)
+            else:
+                await member.ban(reason=reason)
+                embed = discord.Embed(
+                    title="User Banned!",
+                    description=f"**{member}** was banned by **{context.message.author}**!",
+                    color=0x42F56C
+                )
+                embed.add_field(
+                    name="Reason:",
+                    value=reason
+                )
+                await context.send(embed=embed)
+                await member.send(f"You were banned by **{context.message.author}**!\nReason: {reason}")
+        except:
+            embed = discord.Embed(
+                title="Error!",
+                description="An error occurred while trying to ban the user. Make sure my role is above the role of the user you want to ban.",
+                color=0xE02B2B
+            )
+            await context.send(embed=embed)
 
     @commands.command(name="ruoli")
     async def ruoli(self, ctx):
