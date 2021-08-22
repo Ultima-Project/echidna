@@ -1,12 +1,5 @@
-import datetime
-import json
+from datetime import datetime
 import pytz
-import random
-import urllib
-import socket
-
-import discord
-import requests
 from discord.ext import commands
 
 
@@ -14,80 +7,89 @@ class clock(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.group(name="clock", pass_context=True, case_insensitive=True)
+
+    @commands.group(name='clock', pass_context=True, case_insensitive=True, brief='Display hour in a country use the command -clock *country*')
     async def clock(self, ctx):
-        """Display hour in a country use the command -clock *country*"""
+        pass
 
-    @clock.command(name="montréal", aliases=["mtl", "montreal"], pass_context=True)
+
+    @clock.command(name='montréal', aliases=['mtl', 'montreal'], pass_context=True)
     async def clock_montreal(self, ctx):
-        then = datetime.datetime.now(pytz.utc)
-        utc = then.astimezone(pytz.timezone('America/Montreal'))
-        time = utc.strftime("l'orario di Montreal in questo momento è: %H:%M:%S")
-        await ctx.send(time)
-        
-    @clock.command(name="vancouver", pass_context=True)
+        city = 'Montreal'
+        timezone = 'America/Montreal'
+        await ctx.send(datetime_with_timezone(city, timezone))
+
+
+    @clock.command(name='vancouver', pass_context=True)
     async def clock_vancouver(self, ctx):
-        then = datetime.datetime.now(pytz.utc)
-        utc = then.astimezone(pytz.timezone('America/Vancouver'))
-        time = utc.strftime("l'orario di Vancouver in questo momento è: %H:%M:%S")
-        await ctx.send(time)
+        city = 'Vancouver'
+        timezone = 'America/Vancouver'
+        await ctx.send(datetime_with_timezone(city, timezone))
 
-    @clock.command(name="new-york",aliases=["ny", "n-y", "new york"], pass_context=True)
+
+    @clock.command(name='new-york', aliases=['ny', 'n-y', 'new york'], pass_context=True)
     async def clock_new_york(self, ctx):
-        then = datetime.datetime.now(pytz.utc)
-        utc = then.astimezone(pytz.timezone('America/New_York'))
-        time = utc.strftime("l'orario di New York in questo momento è: %H:%M:%S")
-        await ctx.send(time)
-            
-    @clock.command(name="la", aliases=["los-angeles", "losangeles", "l-a", "los angeles"], pass_context=True)
-    async def clock_la(self, ctx):
-        then = datetime.datetime.now(pytz.utc)
-        utc = then.astimezone(pytz.timezone('America/Los_Angeles'))
-        time = utc.strftime("l'orario di Los Angeles in questo momento è: %H:%M:%S")
-        await ctx.send(time)
-            
-    @clock.command(name="paris", aliases=["baguette"],pass_context=True)
-    async def clock_paris(self, ctx):
-        then = datetime.datetime.now(pytz.utc)
-        utc = then.astimezone(pytz.timezone('Europe/Paris'))
-        time = utc.strftime("l'orario di Parigi in questo momento è: %H:%M:%S")
-        await ctx.send(time)
-    
-    @clock.command(name="berlin", pass_context=True)
-    async def clock_berlin(self, ctx):
-        then = datetime.datetime.now(pytz.utc)
-        utc = then.astimezone(pytz.timezone('Europe/Berlin'))
-        time = utc.strftime("l'orario di Berlino in questo momento è: %H:%M:%S")
-        await ctx.send(time)
-    
-    @clock.command(name="berne", aliases=["zurich", "bern"], pass_context=True)
-    async def clock_berne(self, ctx):
-        then = datetime.datetime.now(pytz.utc)
-        utc = then.astimezone(pytz.timezone('Europe/Zurich'))
-        time = utc.strftime("l'orario di Zurigo in questo momento è: %H:%M:%S")
-        await ctx.send(time)
-    
-    @clock.command(name="tokyo", pass_context=True)
-    async def clock_tokyo(self, ctx):
-        then = datetime.datetime.now(pytz.utc)
-        utc = then.astimezone(pytz.timezone('Asia/Tokyo'))
-        time = utc.strftime("l'orario di Tokyo in questo momento è: %H:%M:%S")
-        await ctx.send(time)
+        city = 'New York'
+        timezone = 'America/New_York'
+        await ctx.send(datetime_with_timezone(city, timezone))
 
-    @clock.command(name="moscou", aliases=["moscow", "moskova"], pass_context=True)
+
+    @clock.command(name='la', aliases=['los-angeles', 'losangeles', 'l-a', 'los angeles'], pass_context=True)
+    async def clock_la(self, ctx):
+        city = 'Los Angeles'
+        timezone = 'America/Los_Angeles'
+        await ctx.send(datetime_with_timezone(city, timezone))
+
+
+    @clock.command(name='paris', aliases=['baguette'], pass_context=True)
+    async def clock_paris(self, ctx):
+        city = 'Parigi'
+        timezone = 'Europe/Paris'
+        await ctx.send(datetime_with_timezone(city, timezone))
+
+
+    @clock.command(name='berlin', pass_context=True)
+    async def clock_berlin(self, ctx):
+        city = 'Berlino'
+        timezone = 'Europe/Berlin'
+        await ctx.send(datetime_with_timezone(city, timezone))
+
+
+    @clock.command(name='berne', aliases=['zurich', 'bern'], pass_context=True)
+    async def clock_berne(self, ctx):
+        city = 'Zurigo'
+        timezone = 'Europe/Zurich'
+        await ctx.send(datetime_with_timezone(city, timezone))
+
+
+    @clock.command(name='tokyo', pass_context=True)
+    async def clock_tokyo(self, ctx):
+        city = 'Tokyo'
+        timezone = 'Asia/Tokyo'
+        await ctx.send(datetime_with_timezone(city, timezone))
+
+
+    @clock.command(name='moscou', aliases=['moscow', 'moskova'], pass_context=True)
     async def clock_moscou(self, ctx):
-        then = datetime.datetime.now(pytz.utc)
-        utc = then.astimezone(pytz.timezone('Europe/Moscow'))
-        time = utc.strftime("l'orario di Mosca in questo momento è: %H:%M:%S")
-        await ctx.send(time)
-    
-    @clock.command(name="italia", pass_context=True)
+        city = 'Mosca'
+        timezone = 'Europe/Moscow'
+        await ctx.send(datetime_with_timezone(city, timezone))
+
+
+    @clock.command(name='italia', pass_context=True)
     async def clock_italia(self, ctx):
-        then = datetime.datetime.now(pytz.utc)
-        utc = then.astimezone(pytz.timezone('Europe/Rome'))
-        time = utc.strftime("l'orario di Italia in questo momento è: %H:%M:%S")
-        await ctx.send(time)
-        
+        city = 'Italia'
+        timezone = 'Europe/Rome'
+        await ctx.send(datetime_with_timezone(city, timezone))
+
+
+def datetime_with_timezone(city: str, timezone: str):
+    now = datetime.now(pytz.utc)
+    utc = now.astimezone(pytz.timezone(timezone))
+    str = 'L\'orario di {0} in questo momento è %H:%M:%S'
+    time = utc.strftime(str.format(city))
+    return time
+
 
 def setup(bot):
     bot.add_cog(clock(bot))
