@@ -53,7 +53,7 @@ class fun(commands.Cog):
     @commands.command()
     async def natale(self, ctx):
 
-        now = datetime.datetime.now()
+        now = datetime.now()
         today = date(now.year, now.month, now.day)
 
         year = now.year
