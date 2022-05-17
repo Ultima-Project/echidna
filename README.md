@@ -25,4 +25,3 @@ The bot works with these following versions:
 - [Wiichele](https://github.com/Wiichele) 
 - [NextWorks](https://github.com/NextWork123)
 - [DarkG3n3sis](https://github.com/DarkG3n3sis)
-- [SO4REN](https://github.com/SO4REN)
